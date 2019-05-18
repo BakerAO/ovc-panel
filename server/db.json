@@ -1,5 +1,40 @@
 {
-    "times": {
-        "time": "7:00"
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Amy",
+      "active": true,
+      "times": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Audrie",
+      "active": true,
+      "times": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Camille",
+      "active": false,
+      "times": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
     }
+  ]
 }
