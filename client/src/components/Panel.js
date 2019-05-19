@@ -24,6 +24,8 @@ export default class Panel extends React.Component {
     checkChanges = async () => {
         const doctors1 = await this.getDoctors();
         const doctors2 = this.state.doctors;
+        console.log(doctors1);
+        console.log(doctors2);
 
         for (let i = 0; i < doctors1.length; i++) {
             for (let j = 0; j < doctors1[i].times.length; j++) {
@@ -38,10 +40,24 @@ export default class Panel extends React.Component {
     updateActive = async (doctor) => {
         const response = await axios.patch(
             `http://localhost:3001/doctors/${doctor.id}`,
-            {active: !doctor.active}
+            { active: !doctor.active }
         );
         console.log(response);
         window.location.reload();
+    }
+
+    updateStatus = async (doctor, time) => {
+        if (doctor.times[time] > 4) {
+            doctor.times[time] = 0;
+        } else {
+            doctor.times[time]++;
+        }
+        const response = await axios.patch(
+            `http://localhost:3001/doctors/${doctor.id}`,
+            { times: doctor.times }
+        );
+        console.log(response);
+        // window.location.reload();
     }
 
     componentDidMount() {
@@ -56,8 +72,7 @@ export default class Panel extends React.Component {
     render() {
         return (
             <div>
-                Panel
-                <Grid doctors={this.state.doctors} />
+                <Grid doctors={this.state.doctors} updateStatus={this.updateStatus} />
                 <ActiveDoctors doctors={this.state.doctors} handleClick={this.updateActive} />
             </div>
         );

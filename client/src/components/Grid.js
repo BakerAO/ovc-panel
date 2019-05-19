@@ -7,8 +7,8 @@ export default class Grid extends React.Component {
         for (let i = 0; i < this.props.doctors.length; i++) {
             if (this.props.doctors[i].active) {
                 grid.push(
-                    <div className="col">
-                        <Column doctor={this.props.doctors[i]} />
+                    <div className="col" key={this.props.doctors[i].id}>
+                        <Column doctor={this.props.doctors[i]} updateStatus={this.props.updateStatus} />
                     </div>
                 );
             }

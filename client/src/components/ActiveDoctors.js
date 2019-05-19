@@ -5,7 +5,7 @@ export default class ActiveDoctors extends React.Component {
         return this.props.doctors.map(doctor => {
             const color = doctor.active ? 'btn btn-success' : 'btn btn-danger';
             return (
-                <div className="col" key={doctor.id}>
+                <div className="p-2" key={doctor.id}>
                     <button className={color}
                         type="button"
                         onClick={() => this.props.handleClick(doctor)}
@@ -19,7 +19,7 @@ export default class ActiveDoctors extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="d-flex justify-content-start">
                 {this.renderDoctors()}
             </div>
         );

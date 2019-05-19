@@ -5,17 +5,17 @@
       "name": "Amy",
       "active": true,
       "times": [
-        0,
-        0,
-        1,
-        0,
+        4,
+        4,
+        4,
+        3,
         0
       ]
     },
     {
       "id": 2,
       "name": "Audrie",
-      "active": false,
+      "active": true,
       "times": [
         0,
         0,
@@ -51,7 +51,7 @@
     {
       "id": 5,
       "name": "Mindy",
-      "active": true,
+      "active": false,
       "times": [
         0,
         0,
