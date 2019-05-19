@@ -2,23 +2,26 @@ import React from 'react';
 import Column from './Column';
 
 export default class Grid extends React.Component {
-    renderColumns = () => {
+    renderGrid = () => {
         const grid = [];
-        for (let i = 1; i <= this.props.numColumns; i++) {
-            grid.push(
-                <div className="col">
-                    <Column num={i} />
-                </div>
-            );
+        for (let i = 0; i < this.props.doctors.length; i++) {
+            if (this.props.doctors[i].active) {
+                grid.push(
+                    <div className="col">
+                        <Column doctor={this.props.doctors[i]} />
+                    </div>
+                );
+            }
         }
+
+        return grid;
     }
 
     render() {
-
         return (
             <div className="container">
                 <div className="row">
-                    {this.renderColumns()}
+                    {this.renderGrid()}
                 </div>
             </div>
         );

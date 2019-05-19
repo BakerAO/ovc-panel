@@ -15,7 +15,7 @@
     {
       "id": 2,
       "name": "Audrie",
-      "active": true,
+      "active": false,
       "times": [
         0,
         0,
@@ -26,8 +26,32 @@
     },
     {
       "id": 3,
+      "name": "Bruce",
+      "active": false,
+      "times": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 4,
       "name": "Camille",
       "active": false,
+      "times": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Mindy",
+      "active": true,
       "times": [
         0,
         0,

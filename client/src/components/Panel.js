@@ -18,7 +18,7 @@ export default class Panel extends React.Component {
 
     setDoctors = async () => {
         const doctors = await this.getDoctors();
-        this.setState( { doctors: doctors });
+        this.setState({ doctors: doctors });
     }
 
     checkChanges = async () => {

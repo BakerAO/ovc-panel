@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default class Column extends React.Component {
+    renderColumn = () => {
+        
+    }
 
     render() {
         return (
