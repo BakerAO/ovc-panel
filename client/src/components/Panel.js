@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '../apis/db';
 import Grid from './Grid';
 import ActiveDoctors from './ActiveDoctors';
 
@@ -7,12 +7,13 @@ export default class Panel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            doctors: []
+            doctors: [],
+            refresh: false
         }
     }
 
     getDoctors = async () => {
-        const response = await axios.get('http://localhost:3001/doctors');
+        const response = await axios.get('/doctors');
         return response.data;
     }
 
@@ -24,26 +25,26 @@ export default class Panel extends React.Component {
     checkChanges = async () => {
         const doctors1 = await this.getDoctors();
         const doctors2 = this.state.doctors;
-        console.log(doctors1);
-        console.log(doctors2);
 
         for (let i = 0; i < doctors1.length; i++) {
+            if (doctors1[i].active !== doctors2[i].active) {
+                window.location.reload();
+            }
+
             for (let j = 0; j < doctors1[i].times.length; j++) {
                 if (doctors1[i].times[j] !== doctors2[i].times[j]) {
                     window.location.reload();
-                    alert('reload');
                 }
             }
         }
     }
 
     updateActive = async (doctor) => {
-        const response = await axios.patch(
-            `http://localhost:3001/doctors/${doctor.id}`,
+        await axios.patch(`/doctors/${doctor.id}`,
             { active: !doctor.active }
         );
-        console.log(response);
-        window.location.reload();
+        this.setState({ refresh: !this.state.refresh });
+
     }
 
     updateStatus = async (doctor, time) => {
@@ -52,17 +53,17 @@ export default class Panel extends React.Component {
         } else {
             doctor.times[time]++;
         }
-        const response = await axios.patch(
-            `http://localhost:3001/doctors/${doctor.id}`,
+
+        await axios.patch(`/doctors/${doctor.id}`,
             { times: doctor.times }
         );
-        console.log(response);
-        // window.location.reload();
+
+        this.setState({ refresh: !this.state.refresh });
     }
 
     componentDidMount() {
         this.setDoctors();
-        this.interval = setInterval(() => this.checkChanges(), 10000);
+        this.interval = setInterval(() => this.checkChanges(), 2000);
     }
 
     componentWillUnmount() {

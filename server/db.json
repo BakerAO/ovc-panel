@@ -5,11 +5,11 @@
       "name": "Amy",
       "active": true,
       "times": [
-        4,
-        4,
-        4,
         3,
-        0
+        3,
+        3,
+        5,
+        2
       ]
     },
     {
@@ -17,8 +17,8 @@
       "name": "Audrie",
       "active": true,
       "times": [
-        0,
-        0,
+        2,
+        4,
         0,
         1,
         0
@@ -27,11 +27,11 @@
     {
       "id": 3,
       "name": "Bruce",
-      "active": false,
+      "active": true,
       "times": [
         0,
         0,
-        0,
+        1,
         0,
         0
       ]
@@ -53,11 +53,11 @@
       "name": "Mindy",
       "active": false,
       "times": [
-        0,
-        0,
-        0,
-        0,
-        0
+        1,
+        1,
+        1,
+        2,
+        2
       ]
     }
   ]

@@ -4,23 +4,55 @@ export default class Column extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            doctor: {
+                times: [],
+                id: null,
+                name: ''
+            }
         }
     }
+
     renderCells = () => {
         const cells = [];
-        for (let i = 0; i < this.props.doctor.times.length; i++) {
+        const doctor = this.state.doctor;
+        for (let i = 0; i < doctor.times.length; i++) {
+            let color = () => {
+                switch (doctor.times[i]) {
+                case 0:
+                    return 'white';
+                case 1:
+                    return 'blue';
+                case 2:
+                    return 'yellow';
+                case 3:
+                    return 'green';
+                case 4:
+                    return 'red';
+                case 5:
+                    return 'grey';
+                default:
+                    return 'white';
+                }
+            }
+
             cells.push(
                 <div className="p-2"
-                    key={this.props.doctor.id + i}
-                    style={{ border: "1px solid black" }}
-                    onClick={() => this.props.updateStatus(this.props.doctor, i)}
+                    key={doctor.id + i}
+                    style={{
+                        border: "1px solid black",
+                        backgroundColor: color()
+                    }}
+                    onClick={() => this.props.updateStatus(doctor, i)}
                 >
-                    {this.props.doctor.times[i]}
+                    {doctor.times[i]}
                 </div>
             );
         }
         return cells;
+    }
+
+    componentDidMount() {
+        this.setState({ doctor: this.props.doctor });
     }
 
     render() {
@@ -29,7 +61,7 @@ export default class Column extends React.Component {
                 <div className="p-2"
                     style={{ border: "1px solid black" }}
                 >
-                    {this.props.doctor.name}
+                    {this.state.doctor.name}
                 </div>
                 {this.renderCells()}
             </div>
