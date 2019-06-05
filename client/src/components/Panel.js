@@ -44,7 +44,6 @@ export default class Panel extends React.Component {
             { active: !doctor.active }
         );
         this.setState({ refresh: !this.state.refresh });
-
     }
 
     updateStatus = async (doctor, time) => {

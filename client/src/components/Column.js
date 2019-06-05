@@ -15,6 +15,7 @@ export default class Column extends React.Component {
     renderCells = () => {
         const cells = [];
         const doctor = this.state.doctor;
+
         for (let i = 0; i < doctor.times.length; i++) {
             let color = () => {
                 switch (doctor.times[i]) {
@@ -48,6 +49,7 @@ export default class Column extends React.Component {
                 </div>
             );
         }
+
         return cells;
     }
 
@@ -57,7 +59,9 @@ export default class Column extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column" style={{ border: "1px solid black" }}>
+            <div className="d-flex flex-column"
+                style={{ border: "1px solid black" }}
+            >
                 <div className="p-2"
                     style={{ border: "1px solid black" }}
                 >

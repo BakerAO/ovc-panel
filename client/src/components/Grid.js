@@ -5,11 +5,14 @@ import Times from './Times';
 export default class Grid extends React.Component {
     renderGrid = () => {
         const grid = [];
+
         for (let i = 0; i < this.props.doctors.length; i++) {
             if (this.props.doctors[i].active) {
                 grid.push(
                     <div className="col" key={this.props.doctors[i].id}>
-                        <Column doctor={this.props.doctors[i]} updateStatus={this.props.updateStatus} />
+                        <Column doctor={this.props.doctors[i]}
+                            updateStatus={this.props.updateStatus}
+                        />
                     </div>
                 );
             }
@@ -22,7 +25,9 @@ export default class Grid extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <Times />
+                    <div className="col">
+                        <Times />
+                    </div>
                     {this.renderGrid()}
                 </div>
             </div>
