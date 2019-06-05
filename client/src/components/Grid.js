@@ -1,5 +1,6 @@
 import React from 'react';
 import Column from './Column';
+import Times from './Times';
 
 export default class Grid extends React.Component {
     renderGrid = () => {
@@ -21,6 +22,7 @@ export default class Grid extends React.Component {
         return (
             <div className="container">
                 <div className="row">
+                    <Times />
                     {this.renderGrid()}
                 </div>
             </div>
