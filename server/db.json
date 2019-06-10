@@ -6,7 +6,7 @@
       "active": true,
       "times": [
         0,
-        0,
+        2,
         0,
         0,
         0,
@@ -15,15 +15,15 @@
         1,
         0,
         2,
+        1,
+        0,
+        1,
+        1,
         0,
         0,
         1,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
         0,
         0,
         0
@@ -61,7 +61,7 @@
     {
       "id": 3,
       "name": "Bruce",
-      "active": false,
+      "active": true,
       "times": [
         0,
         0,
@@ -90,7 +90,7 @@
     {
       "id": 4,
       "name": "Camille",
-      "active": true,
+      "active": false,
       "times": [
         0,
         0,
