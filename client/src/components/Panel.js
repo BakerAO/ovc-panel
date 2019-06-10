@@ -2,12 +2,14 @@ import React from 'react';
 import axios from '../apis/db';
 import Grid from './Grid';
 import ActiveDoctors from './ActiveDoctors';
+import Period from './Period';
 
 export default class Panel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             doctors: [],
+            period: 1,
             refresh: false
         }
     }
@@ -60,6 +62,14 @@ export default class Panel extends React.Component {
         this.setState({ refresh: !this.state.refresh });
     }
 
+    updatePeriod = () => {
+        if (this.state.period === 1) {
+            this.setState({ period: 2 });
+        } else {
+            this.setState({ period: 1 });
+        }
+    }
+
     componentDidMount() {
         this.setDoctors();
         this.interval = setInterval(() => this.checkChanges(), 2000);
@@ -72,7 +82,8 @@ export default class Panel extends React.Component {
     render() {
         return (
             <div>
-                <Grid doctors={this.state.doctors} updateStatus={this.updateStatus} />
+                <Grid doctors={this.state.doctors} updateStatus={this.updateStatus} period={this.state.period} />
+                <Period handleClick={this.updatePeriod} />
                 <ActiveDoctors doctors={this.state.doctors} handleClick={this.updateActive} />
             </div>
         );

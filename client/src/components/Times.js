@@ -10,7 +10,11 @@ export default class Times extends React.Component {
     }
 
     getTimes = async () => {
-        const response = await axios.get('/times');
+        let uri = '/times1';
+        if (this.props.period === 2) {
+            uri = '/times2';
+        }
+        const response = await axios.get(`${uri}`);
         this.setState({ times: response.data });
     }
 

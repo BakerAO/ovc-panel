@@ -19,7 +19,7 @@ export default class ActiveDoctors extends React.Component {
 
     render() {
         return (
-            <div className="d-flex justify-content-start">
+            <div className="d-flex justify-content-center">
                 {this.renderDoctors()}
             </div>
         );
