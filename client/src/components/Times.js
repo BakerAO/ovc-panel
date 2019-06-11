@@ -19,6 +19,7 @@ export default class Times extends React.Component {
             return (
                 <div className="p-2"
                     key={time}
+                    id={time}
                     style={{ border: "1px solid black" }}
                 >
                     {time}

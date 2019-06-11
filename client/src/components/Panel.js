@@ -8,7 +8,11 @@ export default class Panel extends React.Component {
         super(props);
         this.state = {
             doctors: [],
-            refresh: false
+            refresh: false,
+            time: {
+                hour: 0,
+                minute: 0
+            }
         }
     }
 
@@ -23,6 +27,7 @@ export default class Panel extends React.Component {
     }
 
     checkChanges = async () => {
+        this.checkTime();
         const doctors1 = await this.getDoctors();
         const doctors2 = this.state.doctors;
 
@@ -37,6 +42,15 @@ export default class Panel extends React.Component {
                 }
             }
         }
+    }
+
+    checkTime = () => {
+        let stateTime = this.state.time;
+        let currentTime = new Date();
+        let newTime = {
+            hour: currentTime.getHours(),
+            minute: currentTime.getMinutes()
+        };
     }
 
     updateActive = async (doctor) => {
@@ -62,6 +76,11 @@ export default class Panel extends React.Component {
 
     componentDidMount() {
         this.setDoctors();
+        let time = new Date();
+        this.setState({ time: {
+            hour: time.getHours(),
+            minute: time.getMinutes()
+        }});
         this.interval = setInterval(() => this.checkChanges(), 2000);
     }
 
