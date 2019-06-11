@@ -26,7 +26,7 @@ export default class Grid extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <Times period={this.props.period} />
+                        <Times />
                     </div>
                     {this.renderGrid()}
                 </div>
