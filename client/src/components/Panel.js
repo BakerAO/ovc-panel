@@ -51,6 +51,9 @@ export default class Panel extends React.Component {
             hour: currentTime.getHours(),
             minute: currentTime.getMinutes()
         };
+        if (stateTime.hour === newTime.hour && stateTime.minute - newTime.minute < 15) {
+            // something
+        }
     }
 
     updateActive = async (doctor) => {
