@@ -9,10 +9,7 @@ export default class Panel extends React.Component {
         this.state = {
             doctors: [],
             refresh: false,
-            time: {
-                hour: 0,
-                minute: 0
-            }
+            time: 0
         }
     }
 
@@ -46,12 +43,9 @@ export default class Panel extends React.Component {
 
     checkTime = () => {
         let stateTime = this.state.time;
-        let currentTime = new Date();
-        let newTime = {
-            hour: currentTime.getHours(),
-            minute: currentTime.getMinutes()
-        };
-        if (stateTime.hour === newTime.hour && stateTime.minute - newTime.minute < 15) {
+        let currentTime = Date.now();
+
+        if ((currentTime - stateTime) > 90000) {
             // something
         }
     }
