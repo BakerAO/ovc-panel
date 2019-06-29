@@ -46,7 +46,7 @@ export default class Panel extends React.Component {
         let currentTime = Date.now();
 
         if ((currentTime - stateTime) > 90000) {
-            // something
+            this.setState({ time: currentTime });
         }
     }
 
@@ -88,7 +88,11 @@ export default class Panel extends React.Component {
     render() {
         return (
             <div>
-                <Grid doctors={this.state.doctors} updateStatus={this.updateStatus} />
+                <Grid
+                    doctors={this.state.doctors}
+                    updateStatus={this.updateStatus}
+                    time={this.state.time}
+                />
                 <hr />
                 <ActiveDoctors doctors={this.state.doctors} handleClick={this.updateActive} />
             </div>
