@@ -2,11 +2,8 @@ import React from 'react';
 import axios from '../apis/db';
 
 export default class Times extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            times: []
-        }
+    state = {
+        times: []
     }
 
     getTimes = async () => {
@@ -20,7 +17,7 @@ export default class Times extends React.Component {
                 <div className="p-2"
                     key={time}
                     id={time}
-                    style={{ border: "1px solid black" }}
+                    style={{ border: "1px solid black", height: '50px' }}
                 >
                     {time}
                 </div>
@@ -37,7 +34,7 @@ export default class Times extends React.Component {
         return (
             <div className="d-flex flex-column">
                 <div className="p-2"
-                    style={{ border: "1px solid black" }}
+                    style={{ border: "1px solid black", height: '50px' }}
                 >
                     Appointment
                 </div>

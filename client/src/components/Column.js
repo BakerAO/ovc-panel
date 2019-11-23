@@ -19,20 +19,20 @@ export default class Column extends React.Component {
         for (let i = 0; i < doctor.times.length; i++) {
             let color = () => {
                 switch (doctor.times[i]) {
-                case 0:
-                    return 'white';
-                case 1:
-                    return 'blue';
-                case 2:
-                    return 'yellow';
-                case 3:
-                    return 'green';
-                case 4:
-                    return 'red';
-                case 5:
-                    return 'grey';
-                default:
-                    return 'white';
+                    case 0:
+                        return 'white';
+                    case 1:
+                        return 'red';
+                    case 2:
+                        return 'yellow';
+                    case 3:
+                        return 'green';
+                    case 4:
+                        return 'blue';
+                    case 5:
+                        return 'grey';
+                    default:
+                        return 'white';
                 }
             }
 
@@ -41,11 +41,12 @@ export default class Column extends React.Component {
                     key={doctor.id + i}
                     style={{
                         border: "1px solid black",
-                        backgroundColor: color()
+                        backgroundColor: color(),
+                        height: '50px'
                     }}
                     onClick={() => this.props.updateStatus(doctor, i)}
                 >
-                    {doctor.times[i]}
+
                 </div>
             );
         }
