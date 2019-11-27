@@ -1,3 +1,7 @@
 # OVC Panel
 
-Work in progress to track patient flow
+## Client
+sudo PORT=80 npm start
+
+## Server
+npm start
