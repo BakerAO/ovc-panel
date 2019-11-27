@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../apis/db'
+import api from '../api'
 import Grid from './Grid'
 import ActiveDoctors from './ActiveDoctors'
 
@@ -11,19 +11,19 @@ export default class Panel extends React.Component {
   }
 
   getDoctors = async () => {
-      const response = await axios.get('/doctors')
-      return response.data
+    const response = await api.get('/doctors')
+    return response.data
   }
 
   setDoctors = async () => {
-      const doctors = await this.getDoctors()
-      this.setState({ doctors: doctors })
+    const doctors = await this.getDoctors()
+    this.setState({ doctors: doctors })
   }
 
   checkChanges = async () => {
-    this.checkTime();
+    this.checkTime()
     const doctors1 = await this.getDoctors()
-    const doctors2 = this.state.doctors;
+    const doctors2 = this.state.doctors
 
     for (let i = 0; i < doctors1.length; i++) {
       if (doctors1[i].active !== doctors2[i].active) {
@@ -39,25 +39,25 @@ export default class Panel extends React.Component {
   }
 
   checkTime = () => {
-    let stateTime = this.state.time;
+    let stateTime = this.state.time
     let currentTime = Date.now()
     if ((currentTime - stateTime) > 90000) this.setState({ time: currentTime })
   }
 
   updateActive = async (doctor) => {
-    await axios.patch(`/doctors/${doctor.id}`, { active: !doctor.active })
+    await api.patch(`/doctors/${doctor.id}`, { active: !doctor.active })
     this.setState({ refresh: !this.state.refresh })
   }
 
   updateStatus = async (doctor, time) => {
     if (doctor.times[time] > 4) doctor.times[time] = 0
     else doctor.times[time]++
-    await axios.patch(`/doctors/${doctor.id}`, { times: doctor.times })
+    await api.patch(`/doctors/${doctor.id}`, { times: doctor.times })
     this.setState({ refresh: !this.state.refresh })
   }
 
   componentDidMount() {
-    this.setDoctors();
+    this.setDoctors()
     let time = new Date()
     this.setState({ time: { hour: time.getHours(), minute: time.getMinutes() }})
     this.interval = setInterval(() => this.checkChanges(), 2000)
