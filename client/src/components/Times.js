@@ -27,11 +27,11 @@ export default class Times extends React.Component {
   }
 
   componentDidMount() {
-      this.getTimes();
+      this.getTimes()
   }
 
   render() {
-    let times = this.renderTimes();
+    let times = this.renderTimes()
     return (
       <div className="d-flex flex-column">
         <div

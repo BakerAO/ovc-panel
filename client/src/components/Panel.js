@@ -21,28 +21,29 @@ export default class Panel extends React.Component {
   }
 
   checkChanges = async () => {
-    this.checkTime()
-    const doctors1 = await this.getDoctors()
-    const doctors2 = this.state.doctors
+    // this.checkTime()
+    this.setDoctors()
+    // const doctors1 = await this.getDoctors()
+    // const doctors2 = this.state.doctors
 
-    for (let i = 0; i < doctors1.length; i++) {
-      if (doctors1[i].active !== doctors2[i].active) {
-        window.location.reload()
-      }
+    // for (let i = 0; i < doctors1.length; i++) {
+    //   if (doctors1[i].active !== doctors2[i].active) {
+    //     window.location.reload()
+    //   }
 
-      for (let j = 0; j < doctors1[i].times.length; j++) {
-        if (doctors1[i].times[j] !== doctors2[i].times[j]) {
-          window.location.reload()
-        }
-      }
-    }
+    //   for (let j = 0; j < doctors1[i].times.length; j++) {
+    //     if (doctors1[i].times[j] !== doctors2[i].times[j]) {
+    //       window.location.reload()
+    //     }
+    //   }
+    // }
   }
 
-  checkTime = () => {
-    let stateTime = this.state.time
-    let currentTime = Date.now()
-    if ((currentTime - stateTime) > 90000) this.setState({ time: currentTime })
-  }
+  // checkTime = () => {
+  //   let stateTime = this.state.time
+  //   let currentTime = Date.now()
+  //   if ((currentTime - stateTime) > 90000) this.setState({ time: currentTime })
+  // }
 
   updateActive = async (doctor) => {
     await api.patch(`/doctors/${doctor.id}`, { active: !doctor.active })
@@ -60,7 +61,7 @@ export default class Panel extends React.Component {
     this.setDoctors()
     let time = new Date()
     this.setState({ time: { hour: time.getHours(), minute: time.getMinutes() }})
-    this.interval = setInterval(() => this.checkChanges(), 2000)
+    this.interval = setInterval(() => this.checkChanges(), 3000)
   }
 
   componentWillUnmount() {
