@@ -5,7 +5,6 @@ import Times from './Times'
 export default class Grid extends React.Component {
   renderGrid = () => {
     const grid = []
-
     for (let i = 0; i < this.props.doctors.length; i++) {
       if (this.props.doctors[i].active) {
         grid.push(
@@ -18,13 +17,12 @@ export default class Grid extends React.Component {
         )
       }
     }
-
     return grid
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="grid">
         <div className="row">
           <div className="col">
             <Times />

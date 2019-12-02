@@ -15,10 +15,13 @@ export default class Times extends React.Component {
     return this.state.times.map((time) => {
       return (
         <div
-          className="p-2"
+          className="row center middle"
           key={time}
           id={time}
-          style={{ border: "1px solid black", height: '50px' }}
+          style={{
+            border: "1px solid black",
+            height: '50px'
+          }}
         >
           {time}
         </div>
@@ -33,10 +36,13 @@ export default class Times extends React.Component {
   render() {
     let times = this.renderTimes()
     return (
-      <div className="d-flex flex-column">
+      <div className="col">
         <div
-          className="p-2"
-          style={{ border: "1px solid black", height: '50px' }}
+          className="row center middle"
+          style={{
+            border: "1px solid black",
+            height: '50px'
+          }}
         >
           Appointment
         </div>

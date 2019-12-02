@@ -1,17 +1,9 @@
 import React from 'react';
 
 export default class Column extends React.Component {
-  state = {
-    doctor: {
-      times: [],
-      id: null,
-      name: ''
-    }
-  }
-
   renderCells = () => {
     const cells = [];
-    const doctor = this.state.doctor;
+    const doctor = this.props.doctor;
 
     for (let i = 0; i < doctor.times.length; i++) {
       let color = () => {
@@ -34,7 +26,7 @@ export default class Column extends React.Component {
       }
 
       cells.push(
-        <div className="p-2"
+        <div className="row"
           key={doctor.id + i}
           style={{
             border: "1px solid black",
@@ -45,23 +37,20 @@ export default class Column extends React.Component {
         />
       )
     }
-
     return cells
-  }
-
-  componentDidMount() {
-    this.setState({ doctor: this.props.doctor });
   }
 
   render() {
     return (
-      <div className="d-flex flex-column"
-        style={{ border: "1px solid black" }}
-      >
-        <div className="p-2"
-          style={{ border: "1px solid black" }}
+      <div className="col">
+        <div
+          className="row center middle"
+          style={{
+            border: '1px solid black',
+            height: '50px'
+          }}
         >
-          {this.state.doctor.name}
+          {this.props.doctor.name}
         </div>
         {this.renderCells()}
       </div>

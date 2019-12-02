@@ -1,4 +1,5 @@
 import React from 'react'
+import equal from 'deep-equal'
 import api from '../api'
 import Grid from './Grid'
 import ActiveDoctors from './ActiveDoctors'
@@ -17,37 +18,21 @@ export default class Panel extends React.Component {
 
   setDoctors = async () => {
     const doctors = await this.getDoctors()
-    this.setState({ doctors: doctors })
+    if (!equal(doctors, this.state.doctors)) {
+      console.log('hey')
+      this.setState({ doctors: doctors })
+    }
   }
-
-  checkChanges = async () => {
-    // this.checkTime()
-    this.setDoctors()
-    // const doctors1 = await this.getDoctors()
-    // const doctors2 = this.state.doctors
-
-    // for (let i = 0; i < doctors1.length; i++) {
-    //   if (doctors1[i].active !== doctors2[i].active) {
-    //     window.location.reload()
-    //   }
-
-    //   for (let j = 0; j < doctors1[i].times.length; j++) {
-    //     if (doctors1[i].times[j] !== doctors2[i].times[j]) {
-    //       window.location.reload()
-    //     }
-    //   }
-    // }
-  }
-
-  // checkTime = () => {
-  //   let stateTime = this.state.time
-  //   let currentTime = Date.now()
-  //   if ((currentTime - stateTime) > 90000) this.setState({ time: currentTime })
-  // }
 
   updateActive = async (doctor) => {
     await api.patch(`/doctors/${doctor.id}`, { active: !doctor.active })
-    this.setState({ refresh: !this.state.refresh })
+    let doctors = this.state.doctors.map((doc) => {
+      if (doc.id === doctor.id) {
+        doc.active = !doc.active
+      }
+      return doc
+    })
+    this.setState({ doctors })
   }
 
   updateStatus = async (doctor, time) => {
@@ -59,9 +44,7 @@ export default class Panel extends React.Component {
 
   componentDidMount() {
     this.setDoctors()
-    let time = new Date()
-    this.setState({ time: { hour: time.getHours(), minute: time.getMinutes() }})
-    this.interval = setInterval(() => this.checkChanges(), 3000)
+    this.interval = setInterval(() => this.setDoctors(), 3000)
   }
 
   componentWillUnmount() {
