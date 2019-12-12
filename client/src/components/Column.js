@@ -26,7 +26,8 @@ export default class Column extends React.Component {
       }
 
       cells.push(
-        <div className="row"
+        <div
+          className="row"
           key={doctor.id + i}
           style={{
             border: "1px solid black",
