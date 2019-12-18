@@ -17,12 +17,16 @@ app.use(function(req, res, next) {
   next()
 })
 
-app.get('/doctors', async (req, res) => {
+app.get('/', (req, res) => {
+  res.status(200).send('OVC-API')
+})
+
+app.get('/doctors', (req, res) => {
   const getDoctors = `
     SELECT *
     FROM doctors
   `
-  connection.query(getDoctors, async (err, rows, fields) => {
+  connection.query(getDoctors, (err, rows, fields) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -31,13 +35,13 @@ app.get('/doctors', async (req, res) => {
   })
 })
 
-app.post('/doctors', async (req, res) => {
+app.post('/doctors', (req, res) => {
   const getDoctors = `
     UPDATE doctors
     SET times = ${req.body.times}
     WHERE id = ${req.body.id}
   `
-  connection.query(getDoctors, async (err, rows, fields) => {
+  connection.query(getDoctors, (err, rows, fields) => {
     if (err) {
       res.status(500).send(err)
     } else {
