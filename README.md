@@ -3,5 +3,5 @@
 ## Client
 sudo PORT=80 npm start
 
-## Server
+## API
 npm start
