@@ -19,13 +19,12 @@ export default class Panel extends React.Component {
   setDoctors = async () => {
     const doctors = await this.getDoctors()
     if (!equal(doctors, this.state.doctors)) {
-      console.log('hey')
       this.setState({ doctors: doctors })
     }
   }
 
   updateActive = async (doctor) => {
-    await api.patch(`/doctors/${doctor.id}`, { active: !doctor.active })
+    await api.post(`/doctors`, { id: doctor.id, active: !doctor.active })
     let doctors = this.state.doctors.map((doc) => {
       if (doc.id === doctor.id) {
         doc.active = !doc.active
@@ -52,6 +51,7 @@ export default class Panel extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Grid
