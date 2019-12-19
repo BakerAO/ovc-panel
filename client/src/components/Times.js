@@ -1,14 +1,14 @@
 import React from 'react'
-import api from '../api'
+import timesJSON from '../times.json'
 
 export default class Times extends React.Component {
   state = {
     times: []
   }
 
-  getTimes = async () => {
-    const response = await api.get('/times')
-    this.setState({ times: response.data })
+  getTimes = () => {
+    const times = timesJSON.times
+    this.setState({ times: times })
   }
 
   renderTimes = () => {

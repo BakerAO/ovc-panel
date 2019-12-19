@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 app.get('/doctors', (req, res) => {
   const getDoctors = `
-    SELECT *
+    SELECT id, name, active, times
     FROM doctors
   `
   connection.query(getDoctors, (err, rows, fields) => {
