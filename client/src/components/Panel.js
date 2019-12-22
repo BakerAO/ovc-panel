@@ -7,8 +7,7 @@ import ActiveDoctors from './ActiveDoctors'
 export default class Panel extends React.Component {
   state = {
     doctors: [],
-    refresh: false,
-    time: 0
+    refresh: false
   }
 
   getDoctors = async () => {
@@ -18,13 +17,18 @@ export default class Panel extends React.Component {
 
   setDoctors = async () => {
     const doctors = await this.getDoctors()
+    for (let i = 0; i < doctors.length; i++) {
+      if (doctors[i].times) {
+        doctors[i].times = JSON.parse(doctors[i].times)
+      }
+    }
     if (!equal(doctors, this.state.doctors)) {
       this.setState({ doctors: doctors })
     }
   }
 
   updateActive = async (doctor) => {
-    await api.post(`/doctors`, { id: doctor.id, active: !doctor.active })
+    await api.post('/active', { id: doctor.id, active: !doctor.active })
     let doctors = this.state.doctors.map((doc) => {
       if (doc.id === doctor.id) {
         doc.active = !doc.active
@@ -34,10 +38,10 @@ export default class Panel extends React.Component {
     this.setState({ doctors })
   }
 
-  updateStatus = async (doctor, time) => {
+  updateTimes = async (doctor, time) => {
     if (doctor.times[time] > 4) doctor.times[time] = 0
     else doctor.times[time]++
-    await api.patch(`/doctors/${doctor.id}`, { times: doctor.times })
+    await api.post('/times', { id: doctor.id, times: JSON.stringify(doctor.times) })
     this.setState({ refresh: !this.state.refresh })
   }
 
@@ -51,13 +55,11 @@ export default class Panel extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Grid
           doctors={this.state.doctors}
-          updateStatus={this.updateStatus}
-          time={this.state.time}
+          updateTimes={this.updateTimes}
         />
         <hr />
         <ActiveDoctors

@@ -34,7 +34,7 @@ export default class Column extends React.Component {
             backgroundColor: color(),
             height: '50px'
           }}
-          onClick={() => this.props.updateStatus(doctor, i)}
+          onClick={() => this.props.updateTimes(doctor, i)}
         />
       )
     }

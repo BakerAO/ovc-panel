@@ -35,17 +35,32 @@ app.get('/doctors', (req, res) => {
   })
 })
 
-app.post('/doctors', (req, res) => {
+app.post('/active', (req, res) => {
+  const setActive = `
+    UPDATE doctors
+    SET active = ${req.body.active}
+    WHERE id = ${req.body.id}
+  `
+  connection.query(setActive, (err, rows, fields) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.status(200).send(rows)
+    }
+  })
+})
+
+app.post('/times', (req, res) => {
   const getDoctors = `
     UPDATE doctors
-    SET times = ${req.body.times}
+    SET times = '${req.body.times}'
     WHERE id = ${req.body.id}
   `
   connection.query(getDoctors, (err, rows, fields) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      res.status(200).send(rows)
+      res.sendStatus(200)
     }
   })
 })

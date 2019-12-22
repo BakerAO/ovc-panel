@@ -11,7 +11,7 @@ export default class Grid extends React.Component {
           <div className="col" key={this.props.doctors[i].id}>
             <Column
               doctor={this.props.doctors[i]}
-              updateStatus={this.props.updateStatus}
+              updateTimes={this.props.updateTimes}
             />
           </div>
         )
