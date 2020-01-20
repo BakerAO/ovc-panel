@@ -15,12 +15,11 @@ export default class Times extends React.Component {
     return this.state.times.map((time) => {
       return (
         <div
-          className="row center middle"
+          className="row center middle border"
           key={time}
           id={time}
           style={{
-            border: "1px solid black",
-            height: '50px'
+            height: '48px'
           }}
         >
           {time}
@@ -38,10 +37,13 @@ export default class Times extends React.Component {
     return (
       <div className="col">
         <div
-          className="row center middle"
+          className="row center middle border"
           style={{
-            border: "1px solid black",
-            height: '50px'
+            height: '48px',
+            textAlign: 'center',
+            position: 'sticky',
+            top: 0,
+            backgroundColor: 'white'
           }}
         >
           Appointment

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 export default class Column extends React.Component {
   renderCells = () => {
-    const cells = [];
-    const doctor = this.props.doctor;
+    const cells = []
+    const doctor = this.props.doctor
 
     for (let i = 0; i < doctor.times.length; i++) {
       let color = () => {
@@ -20,6 +20,8 @@ export default class Column extends React.Component {
             return 'blue'
           case 5:
             return 'grey'
+          case 6:
+            return 'orange'
           default:
             return ''
         }
@@ -27,12 +29,11 @@ export default class Column extends React.Component {
 
       cells.push(
         <div
-          className="row"
+          className="row border"
           key={doctor.id + i}
           style={{
-            border: "1px solid black",
             backgroundColor: color(),
-            height: '50px'
+            height: '48px'
           }}
           onClick={() => this.props.updateTimes(doctor, i)}
         />
@@ -43,18 +44,21 @@ export default class Column extends React.Component {
 
   render() {
     return (
-      <div className="col">
-        <div
-          className="row center middle"
-          style={{
-            border: '1px solid black',
-            height: '50px'
-          }}
-        >
-          {this.props.doctor.name}
+        <div className="col">
+          <div
+            className="row center middle border"
+            style={{
+              height: '48px',
+              textAlign: 'center',
+              position: 'sticky',
+              top: 0,
+              backgroundColor: 'white'
+            }}
+          >
+            {this.props.doctor.name}
+          </div>
+          {this.renderCells()}
         </div>
-        {this.renderCells()}
-      </div>
     )
   }
 }

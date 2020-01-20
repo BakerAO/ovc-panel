@@ -3,11 +3,12 @@ import React from 'react'
 export default class ActiveDoctors extends React.Component {
   renderDoctors = () => {
     return this.props.doctors.map(doctor => {
-      const color = doctor.active ? 'btn btn-success' : 'btn btn-danger';
+      const color = doctor.active ? 'green' : 'red';
       return (
-        <div className="p-2" key={doctor.id}>
+        <div className="col" key={doctor.id}>
           <button
-            className={color}
+            className=''
+            style={{ backgroundColor: color }}
             type="button"
             onClick={() => this.props.handleClick(doctor)}
           >
@@ -20,8 +21,10 @@ export default class ActiveDoctors extends React.Component {
 
   render() {
     return (
-      <div className="d-flex justify-content-center">
-        {this.renderDoctors()}
+      <div className="grid flex">
+        <div className='row'>
+          {this.renderDoctors()}
+        </div>
       </div>
     )
   }

@@ -39,7 +39,7 @@ export default class Panel extends React.Component {
   }
 
   updateTimes = async (doctor, time) => {
-    if (doctor.times[time] > 4) doctor.times[time] = 0
+    if (doctor.times[time] > 5) doctor.times[time] = 0
     else doctor.times[time]++
     await api.post('/times', { id: doctor.id, times: JSON.stringify(doctor.times) })
     this.setState({ refresh: !this.state.refresh })
@@ -56,12 +56,11 @@ export default class Panel extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ width: '100vw', height: '200vh' }}>
         <Grid
           doctors={this.state.doctors}
           updateTimes={this.updateTimes}
         />
-        <hr />
         <ActiveDoctors
           doctors={this.state.doctors}
           handleClick={this.updateActive}
