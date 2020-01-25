@@ -3,17 +3,31 @@ import React from 'react'
 export default class ActiveDoctors extends React.Component {
   renderDoctors = () => {
     return this.props.doctors.map(doctor => {
-      const color = doctor.active ? 'green' : 'red';
+      const color = doctor.active ? '#28a745' : 'red';
       return (
         <div className="col" key={doctor.id}>
-          <button
-            className=''
-            style={{ backgroundColor: color }}
-            type="button"
-            onClick={() => this.props.handleClick(doctor)}
+          <div className="middle center"
+            style={{
+              margin: '10px',
+              width: '80%',
+              height: '50px'
+            }}
           >
-            {doctor.name}
-          </button>
+            <button
+              style={{
+                backgroundColor: color,
+                borderColor: color,
+                height: '100%',
+                width: '100%',
+                fontSize: 25,
+                color: '#fff',
+                borderRadius: '.25rem',
+              }}
+              onClick={() => this.props.handleClick(doctor)}
+            >
+              {doctor.name}
+            </button>
+          </div>
         </div>
       )
     })
@@ -21,7 +35,7 @@ export default class ActiveDoctors extends React.Component {
 
   render() {
     return (
-      <div className="grid flex">
+      <div className="grid flex h-5">
         <div className='row'>
           {this.renderDoctors()}
         </div>

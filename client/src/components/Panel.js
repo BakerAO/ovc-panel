@@ -3,6 +3,7 @@ import equal from 'deep-equal'
 import api from '../api'
 import Grid from './Grid'
 import ActiveDoctors from './ActiveDoctors'
+import ResetAll from './ResetAll'
 
 export default class Panel extends React.Component {
   state = {
@@ -20,6 +21,7 @@ export default class Panel extends React.Component {
     for (let i = 0; i < doctors.length; i++) {
       if (doctors[i].times) {
         doctors[i].times = JSON.parse(doctors[i].times)
+        doctors[i].defaultTimes = JSON.parse(doctors[i].default_times)
       }
     }
     if (!equal(doctors, this.state.doctors)) {
@@ -45,6 +47,14 @@ export default class Panel extends React.Component {
     this.setState({ refresh: !this.state.refresh })
   }
 
+  handleResetAll = async () => {
+    const { doctors, refresh } = this.state
+    for (let i = 0; i < doctors.length; i++) {
+      await api.post('/times', { id: doctors[i].id, times: JSON.stringify(doctors[i].defaultTimes) })
+    }
+    this.setState({ refresh: !refresh })
+  }
+
   componentDidMount() {
     this.setDoctors()
     this.interval = setInterval(() => this.setDoctors(), 3000)
@@ -64,6 +74,9 @@ export default class Panel extends React.Component {
         <ActiveDoctors
           doctors={this.state.doctors}
           handleClick={this.updateActive}
+        />
+        <ResetAll
+          handleResetAll={this.handleResetAll}
         />
       </div>
     )
