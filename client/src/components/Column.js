@@ -5,7 +5,7 @@ export default class Column extends React.Component {
     const cells = []
     const doctor = this.props.doctor
 
-    for (let i = 0; i < doctor.times.length; i++) {
+    for (let i = 0; i < doctor?.times?.length; i++) {
       let color = () => {
         switch (doctor.times[i]) {
           case 0:

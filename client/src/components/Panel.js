@@ -25,7 +25,7 @@ export default class Panel extends React.Component {
       }
     }
     if (!equal(doctors, this.state.doctors)) {
-      this.setState({ doctors: doctors })
+      this.setState({ doctors })
     }
   }
 
