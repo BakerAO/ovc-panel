@@ -66,5 +66,5 @@ app.post('/times', (req, res) => {
 })
 
 app.listen(3001, () => {
-  console.log('API Started \n')
+  console.log('API Started on port 3001\n')
 })
