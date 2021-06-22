@@ -1,67 +1,60 @@
 import React from 'react'
-import equal from 'deep-equal'
+import clone from 'clone'
 import api from '../api'
+import socket from '../socket'
 import Grid from './Grid'
 import ActiveDoctors from './ActiveDoctors'
 import ResetAll from './ResetAll'
 
 export default class Panel extends React.Component {
-  state = {
-    doctors: [],
-    refresh: false
-  }
-
-  getDoctors = async () => {
-    const response = await api.get('/doctors')
-    return response.data
-  }
+  state = { doctors: [] }
 
   setDoctors = async () => {
-    const doctors = await this.getDoctors()
+    const response = await api.get('/doctors')
+    const doctors = response.data
     for (let i = 0; i < doctors.length; i++) {
       if (doctors[i].times) {
         doctors[i].times = JSON.parse(doctors[i].times)
-        doctors[i].defaultTimes = JSON.parse(doctors[i].default_times)
+        doctors[i].default_times = JSON.parse(doctors[i].default_times)
+        doctors[i].active = !!doctors[i].active
       }
     }
-    if (!equal(doctors, this.state.doctors)) {
-      this.setState({ doctors })
-    }
+    this.setState({ doctors })
   }
 
   updateActive = async (doctor) => {
     await api.post('/active', { id: doctor.id, active: !doctor.active })
-    let doctors = this.state.doctors.map((doc) => {
-      if (doc.id === doctor.id) {
-        doc.active = !doc.active
-      }
-      return doc
-    })
-    this.setState({ doctors })
   }
 
   updateTimes = async (doctor, time) => {
     if (doctor.times[time] > 5) doctor.times[time] = 0
     else doctor.times[time]++
     await api.post('/times', { id: doctor.id, times: JSON.stringify(doctor.times) })
-    this.setState({ refresh: !this.state.refresh })
   }
 
   handleResetAll = async () => {
-    const { doctors, refresh } = this.state
+    const { doctors } = this.state
     for (let i = 0; i < doctors.length; i++) {
-      await api.post('/times', { id: doctors[i].id, times: JSON.stringify(doctors[i].defaultTimes) })
+      await api.post('/times', { id: doctors[i].id, times: JSON.stringify(doctors[i].default_times) })
     }
-    this.setState({ refresh: !refresh })
   }
 
   componentDidMount() {
     this.setDoctors()
-    this.interval = setInterval(() => this.setDoctors(), 3000)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
+    socket.on('update', (ioDoc) => {
+      try {
+        const doctors = clone(this.state.doctors)
+        for (const i in doctors) {
+          if (ioDoc.id === doctors[i].id) {
+            if (ioDoc.times) ioDoc.times = JSON.parse(ioDoc.times)
+            doctors[i] = { ...doctors[i], ...ioDoc }
+          }
+        }
+        this.setState({ doctors })
+      } catch (err) {
+        console.log(err)
+      }
+    })
   }
 
   render() {

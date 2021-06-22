@@ -2,9 +2,7 @@ import React from 'react'
 import timesJSON from '../times.json'
 
 export default class Times extends React.Component {
-  state = {
-    times: []
-  }
+  state = { times: [] }
 
   getTimes = () => {
     const times = timesJSON.times
@@ -29,7 +27,7 @@ export default class Times extends React.Component {
   }
 
   componentDidMount() {
-      this.getTimes()
+    this.getTimes()
   }
 
   render() {

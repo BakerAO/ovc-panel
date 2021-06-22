@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "clone": "^2.1.2",
     "deep-equal": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "socket.io-client": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
