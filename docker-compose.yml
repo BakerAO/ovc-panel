@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   client:
-    container_name: client-container
+    container_name: ovc-client
     build:
       context: ./client/
       dockerfile: dockerfile

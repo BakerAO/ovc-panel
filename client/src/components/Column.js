@@ -27,7 +27,7 @@ const getColor = (status) => {
     case 0:
       return 'white'
     case 1:
-      return 'red'
+      return 'grey'
     case 2:
       return 'yellow'
     case 3:
@@ -35,9 +35,9 @@ const getColor = (status) => {
     case 4:
       return 'blue'
     case 5:
-      return 'grey'
+      return 'purple'
     case 6:
-      return 'orange'
+      return 'red'
     default:
       return ''
   }
