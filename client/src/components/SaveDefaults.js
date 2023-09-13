@@ -9,18 +9,18 @@ const styles = {
   },
 }
 
-export default function ResetAll(props) {
+export default function SaveDefaults(props) {
   const { weekday } = props
 
   const handleClick = () => {
-    api.post(`reset/${weekday}`)
+    api.post(`defaults/${weekday}`)
   }
 
   return (
     <div style={styles.button}>
       <Button
-        color="gray"
-        label="Reset All"
+        color="orange"
+        label="Save Defaults"
         handleClick={handleClick}
       />
     </div>

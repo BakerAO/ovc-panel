@@ -1,7 +1,2 @@
 # OVC Panel
-
-## Client
-npm start
-
-## API
-npm start
+docker-compose up -d

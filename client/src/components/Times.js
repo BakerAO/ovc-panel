@@ -1,53 +1,53 @@
 import React from 'react'
-import timesJSON from '../times.json'
+import timesJSON from '../data/times.json'
 
-export default class Times extends React.Component {
-  state = { times: [] }
-
-  getTimes = () => {
-    const times = timesJSON.times
-    this.setState({ times: times })
+const styles = {
+  column: {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    height: '48px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cell: {
+    width: '100%',
+    height: '48px',
+    border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
+}
 
-  renderTimes = () => {
-    return this.state.times.map((time) => {
-      return (
-        <div
-          className="row center middle border"
-          key={time}
-          id={time}
-          style={{
-            height: '48px'
-          }}
-        >
-          {time}
-        </div>
-      )
-    })
-  }
+export default function Times() {
+  const times = timesJSON.times
 
-  componentDidMount() {
-    this.getTimes()
-  }
-
-  render() {
-    let times = this.renderTimes()
+  const renderTime = (time) => {
     return (
-      <div className="col">
-        <div
-          className="row center middle border"
-          style={{
-            height: '48px',
-            textAlign: 'center',
-            position: 'sticky',
-            top: 0,
-            backgroundColor: 'white'
-          }}
-        >
-          Appointment
-        </div>
-        {times}
+      <div
+        key={time}
+        id={time}
+        style={styles.cell}
+      >
+        {time}
       </div>
     )
   }
+
+  return (
+    <div style={styles.column}>
+      <div style={styles.header}>
+        Appointment
+      </div>
+      {times.map(t => renderTime(t))}
+    </div>
+  )
 }
+

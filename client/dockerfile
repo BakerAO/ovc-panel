@@ -5,6 +5,6 @@ COPY . /ui
 
 RUN npm i
 
-EXPOSE 80
+EXPOSE 8000
 
-CMD ["sh", "-c", "PORT=80 npm start"]
+CMD ["sh", "-c", "PORT=8000 npm start"]

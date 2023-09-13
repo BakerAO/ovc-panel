@@ -2,34 +2,54 @@ import React from 'react'
 import Column from './Column'
 import Times from './Times'
 
-export default class Grid extends React.Component {
-  renderGrid = () => {
-    const grid = []
-    for (let i = 0; i < this.props.doctors.length; i++) {
-      if (this.props.doctors[i].active) {
-        grid.push(
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }} key={this.props.doctors[i].id}>
-            <Column
-              doctor={this.props.doctors[i]}
-              updateTimes={this.props.updateTimes}
-            />
-          </div>
-        )
-      }
-    }
-    return grid
-  }
+const styles = {
+  grid: {
+    boxSizing: 'border-box',
+    height: '80%',
+    width: '100%',
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  },
+  container: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+  },
+}
 
-  render() {
-    return (
-      <div className="grid">
-        <div style={{ width: '100%', height: '100%', display: 'flex' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <Times />
-          </div>
-          {this.renderGrid()}
+export default function Grid(props) {
+  const { dayValues, doctors, weekday } = props
+
+  const renderGrid = () => {
+    const items = []
+    for (const d of doctors) {
+      const timeValues = dayValues.filter(dv => dv.doctorId === d.id)
+      items.push(
+        <div style={styles.column} key={d.id}>
+          <Column
+            doctor={d}
+            timeValues={timeValues}
+            weekday={weekday}
+          />
         </div>
-      </div>
-    )
+      )
+    }
+
+    return items
   }
+  
+
+  return (
+    <div style={styles.grid}>
+      <div style={styles.container}>
+        <div style={styles.column}>
+          <Times />
+        </div>
+        {renderGrid()}
+      </div>
+    </div>
+  )
 }

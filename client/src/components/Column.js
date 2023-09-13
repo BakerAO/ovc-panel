@@ -1,64 +1,78 @@
 import React from 'react'
+import api from '../data/api'
 
-export default class Column extends React.Component {
-  renderCells = () => {
+const styles = {
+  container: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+  },
+  header: {
+    height: '48px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cell: {
+    width: '100%',
+    height: '48px',
+    border: '1px solid black',
+  },
+}
+
+const getColor = (status) => {
+  switch (status) {
+    case 0:
+      return 'white'
+    case 1:
+      return 'red'
+    case 2:
+      return 'yellow'
+    case 3:
+      return 'green'
+    case 4:
+      return 'blue'
+    case 5:
+      return 'grey'
+    case 6:
+      return 'orange'
+    default:
+      return ''
+  }
+}
+
+export default function Column(props) {
+  const { doctor, timeValues, weekday } = props
+
+  const updateTime = async (timeId, doctorId, status) => {
+    await api.post(`/times/${weekday}`, { timeId, doctorId, status})
+  }
+
+  const renderCells = () => {
     const cells = []
-    const doctor = this.props.doctor
-
-    for (let i = 0; i < doctor?.times?.length; i++) {
-      let color = () => {
-        switch (doctor.times[i]) {
-          case 0:
-            return 'white'
-          case 1:
-            return 'red'
-          case 2:
-            return 'yellow'
-          case 3:
-            return 'green'
-          case 4:
-            return 'blue'
-          case 5:
-            return 'grey'
-          case 6:
-            return 'orange'
-          default:
-            return ''
-        }
-      }
-
+    for (const tv of timeValues) {
       cells.push(
         <div
-          className="row border"
-          key={doctor.id + i}
+          key={`${doctor.id}-${tv.id}`}
           style={{
-            backgroundColor: color(),
-            height: '48px'
+            ...styles.cell,
+            backgroundColor: getColor(tv.status),
           }}
-          onClick={() => this.props.updateTimes(doctor, i)}
+          onClick={() => updateTime(tv.id, doctor.id, tv.status + 1)}
         />
       )
     }
     return cells
   }
 
-  render() {
-    return (
-        <div className="col">
-          <div
-            className="row center middle border"
-            style={{
-              height: '48px',
-              textAlign: 'center',
-              position: 'sticky',
-              top: 0,
-              backgroundColor: 'white'
-            }}
-          >
-            {this.props.doctor.name}
-          </div>
-          {this.renderCells()}
-        </div>
-    )
-  }
+  return (
+    <div style={styles.container}>
+      <div style={styles.header}>
+        {doctor.name}
+      </div>
+      {renderCells()}
+    </div>
+  )
 }

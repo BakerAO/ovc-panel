@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 
-const url = 'http://10.0.0.176:3001'
+const url = `http://${window.location.hostname}:8001`
 
 const socket = io(url, { path: '/socket' })
 
