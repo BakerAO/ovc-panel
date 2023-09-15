@@ -21,7 +21,6 @@ const styles = {
 
 export default function App() {
   const [weekday, setWeekday] = useState('monday')
-  // const [dayValues, setDayValues] = useState([])
   const [doctors, setDoctors] = useState([])
 
   useEffect(() => {
@@ -37,33 +36,7 @@ export default function App() {
     socket.on('activeDay', (ioDay) => {
       setWeekday(ioDay)
     })
-    // socket.on('updateAllTimes', (ioAllTimes) => {
-    //   setDayValues(ioAllTimes)
-    // })
-    // socket.on('updateTime', (ioTime) => {
-    //   const { timeId, doctorId, status } = ioTime
-    //   setDayValues((prev) => {
-    //     return prev.map(dv => {
-    //       if (dv.id === timeId && dv.doctorId === doctorId) {
-    //         return {
-    //           ...dv,
-    //           status
-    //         }
-    //       }
-    //       return dv
-    //     })
-    //   })
-    // })
   }, [])
-
-  // useEffect(() => {
-  //   const getDayValues = async () => {
-  //     const values = await api.get(`/times/${weekday}`)
-  //     setDayValues(values.data)
-  //   }
-
-  //   getDayValues()
-  // }, [weekday])
 
   const activeDoctors = () => {
     return doctors.filter(d => {
