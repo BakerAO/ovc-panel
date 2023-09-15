@@ -1,10 +1,10 @@
-FROM node:16
+FROM oven/bun
 
 WORKDIR /ui
 COPY . /ui
 
-RUN npm i
+RUN bun i
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "PORT=8000 npm start"]
+CMD ["bun", "start"]
