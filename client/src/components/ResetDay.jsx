@@ -9,7 +9,7 @@ const styles = {
   },
 }
 
-export default function ResetAll(props) {
+export default function ResetDay(props) {
   const { weekday } = props
 
   const handleClick = () => {
@@ -19,8 +19,8 @@ export default function ResetAll(props) {
   return (
     <div style={styles.button}>
       <Button
-        color="gray"
-        label="Reset All"
+        color="red"
+        label="Reset Day"
         handleClick={handleClick}
       />
     </div>

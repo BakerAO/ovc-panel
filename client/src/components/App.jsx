@@ -4,7 +4,7 @@ import socket from '../data/socket'
 import DayChooser from './DayChooser'
 import DoctorSelection from './DoctorSelection'
 import SaveDefaults from './SaveDefaults'
-import ResetAll from './ResetAll'
+import ResetDay from './ResetDay'
 import Grid from './Grid'
 
 const styles = {
@@ -85,7 +85,7 @@ export default function App() {
       <DayChooser weekday={weekday} />
       <div style={styles.bottomRow}>
         <SaveDefaults weekday={weekday} />
-        <ResetAll weekday={weekday} />
+        <ResetDay weekday={weekday} />
       </div>
     </div>
   )
