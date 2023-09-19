@@ -26,17 +26,17 @@ const getColor = (status) => {
     case 0:
       return 'white'
     case 1:
-      return 'grey'
-    case 2:
       return 'red'
-    case 3:
+    case 2:
       return 'yellow'
-    case 4:
+    case 3:
       return 'green'
-    case 5:
+    case 4:
       return 'blue'
-    case 6:
+    case 5:
       return 'orange'
+    case 6:
+      return 'gray'
     default:
       return ''
   }
