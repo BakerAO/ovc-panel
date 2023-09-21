@@ -94,17 +94,6 @@ const wrapper = (io, room) => {
     }
   })
 
-  router.post('/active-day', async (req, res) => {
-    try {
-      const { weekday } = req.body
-
-      io.sockets.to(room).emit('activeDay', weekday)
-      res.status(200).send('Success')
-    } catch (err) {
-      res.status(500).send(err)
-    }
-  })
-
   router.post('/times/:weekday', async (req, res) => {
     try {
       const { weekday } = req.params
@@ -164,6 +153,39 @@ const wrapper = (io, room) => {
     }
   })
 
+
+  router.get('/active-day', async (req, res) => {
+    try {
+
+      const getActiveDay = `
+        SELECT day
+        FROM activeDay
+      `
+      const [rows] = await mysqlPool.query(getActiveDay)
+      res.status(200).send(rows[0].day)
+    } catch (e) {
+      res.status(500).send(e)
+    }
+  })
+
+
+  router.post('/active-day', async (req, res) => {
+    try {
+      const { weekday } = req.body
+
+      const updateActiveDay = `
+        UPDATE activeDay
+        SET
+          day = '${weekday}'
+      `
+      await mysqlPool.query(updateActiveDay)
+      io.sockets.to(room).emit('activeDay', weekday)
+      res.status(200).send('Success')
+    } catch (e) {
+      res.status(500).send(e)
+    }
+  })
+
   router.get('/generate', async (req, res) => {
     try {
       const numTimes = 42
@@ -180,6 +202,16 @@ const wrapper = (io, room) => {
         `
         await mysqlPool.query(createDay)
       }
+
+      await mysqlPool.query(`
+        CREATE TABLE activeDay (
+          day varchar(50) primary key
+        );
+      `)
+      await mysqlPool.query(`
+        INSERT INTO activeDay
+        VALUES ('monday');
+      `)
 
       await mysqlPool.query(`
         CREATE TABLE doctors (
@@ -276,6 +308,9 @@ const wrapper = (io, room) => {
 
       await mysqlPool.query(`
         DROP TABLE IF EXISTS doctors;
+      `)
+      await mysqlPool.query(`
+        DROP TABLE IF EXISTS activeDay;
       `)
 
       res.status(200).send('Success')

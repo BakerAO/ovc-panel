@@ -28,8 +28,14 @@ export default function App() {
       const doctorsRes = await api.get('/doctors')
       setDoctors(doctorsRes.data)
     }
+    const getActiveDay = async () => {
+      const dbDay = await api.get('/active-day')
+      setWeekday(dbDay.data)
+    }
 
     getDoctors()
+    getActiveDay()
+
     socket.on('updateDoctors', (ioDocs) => {
       setDoctors(ioDocs)
     })
