@@ -10,9 +10,14 @@ const styles = {
   },
   header: {
     height: '48px',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: 'white',
+    border: '1px solid black',
   },
   cell: {
     width: '100%',
