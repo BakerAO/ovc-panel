@@ -29,7 +29,7 @@ export default function DayChooser(props) {
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
   
   const renderDays = () => {
-    const result = [];
+    const result = []
     for (const day of days) {
       let color = 'gray'
       if (weekday === day) color = 'blue'
@@ -45,7 +45,7 @@ export default function DayChooser(props) {
       )
     }
 
-    return result;
+    return result
   }
 
   return (

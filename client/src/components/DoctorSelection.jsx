@@ -29,7 +29,7 @@ export default function DoctorSelection(props) {
 
   const renderDoctors = () => {
     return doctors.map(doctor => {
-      const color = doctor[weekday] ? '#28a745' : 'red';
+      const color = doctor[weekday] ? '#28a745' : 'red'
       return (
         <div style={styles.button} key={doctor.id}>
           <Button
