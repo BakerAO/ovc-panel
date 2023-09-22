@@ -9,10 +9,12 @@ const styles = {
     flex: 1,
   },
   header: {
-    height: '48px',
+    height: '60px',
     width: '100%',
+    fontSize: 20,
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'sticky',
     top: 0,
@@ -75,6 +77,7 @@ export default function Column(props) {
     <div style={styles.container}>
       <div style={styles.header}>
         {doctor.name}
+        <div style={{ height: '10px' }} />
       </div>
       {renderCells()}
     </div>

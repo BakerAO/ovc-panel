@@ -10,10 +10,12 @@ const styles = {
     alignItems: 'center',
   },
   header: {
-    height: '48px',
+    height: '60px',
     width: '100%',
+    fontSize: 20,
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'sticky',
     top: 0,
@@ -49,6 +51,7 @@ export default function Times() {
     <div style={styles.column}>
       <div style={styles.header}>
         Appointment
+        <div style={{ height: '10px' }} />
       </div>
       {times.map(t => renderTime(t))}
     </div>
