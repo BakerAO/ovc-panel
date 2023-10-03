@@ -7,6 +7,7 @@ services:
       dockerfile: dockerfile
     ports:
       - "80:8000"
+    restart: "unless-stopped"
   api:
     container_name: ovc-api
     build:
@@ -20,6 +21,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "8001:8001"
+    restart: "unless-stopped"
   db:
     image: mariadb
     container_name: ovc-mariadb
@@ -32,6 +34,7 @@ services:
       - "8002:3306"
     volumes:
       - mariadb-volume:/var/lib/mysql
+    restart: "unless-stopped"
 
 volumes:
   mariadb-volume:
