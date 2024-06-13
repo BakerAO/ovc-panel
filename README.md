@@ -1,5 +1,5 @@
 # OVC Panel
-docker-compose up -d
+docker compose up -d
 
 ### .env
 MYSQL_ROOT_PASSWORD=myPassword

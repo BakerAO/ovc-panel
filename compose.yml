@@ -1,30 +1,27 @@
 version: "3.7"
 services:
   client:
-    container_name: ovc-client
-    build:
-      context: ./client/
-      dockerfile: dockerfile
+    container_name: ovc-panel-client
+    build: ./client
+    restart: "unless-stopped"
     ports:
       - "80:8000"
-    restart: "unless-stopped"
   api:
-    container_name: ovc-api
-    build:
-      context: ./api/
-      dockerfile: dockerfile
+    container_name: ovc-panel-api
+    build: ./api
+    restart: "unless-stopped"
     environment:
-      MYSQL_HOST: ${MYSQL_HOST}
       MYSQL_PORT: 8002
+      MYSQL_HOST: ${MYSQL_HOST}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "8001:8001"
-    restart: "unless-stopped"
   db:
-    image: mariadb
     container_name: ovc-mariadb
+    image: mariadb
+    restart: "unless-stopped"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -34,7 +31,6 @@ services:
       - "8002:3306"
     volumes:
       - mariadb-volume:/var/lib/mysql
-    restart: "unless-stopped"
 
 volumes:
   mariadb-volume:
