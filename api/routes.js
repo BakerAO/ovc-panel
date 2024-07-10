@@ -251,6 +251,14 @@ const wrapper = (io, room) => {
           id: 6,
           name: 'Nicole'
         },
+        {
+          id: 7,
+          name: 'Beth'
+        },
+        {
+          id: 8,
+          name: 'Katie'
+        }
       ]
 
       for (const doctor of doctors) {
