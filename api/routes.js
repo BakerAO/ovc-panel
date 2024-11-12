@@ -153,7 +153,6 @@ const wrapper = (io, room) => {
     }
   })
 
-
   router.get('/active-day', async (req, res) => {
     try {
 
@@ -167,7 +166,6 @@ const wrapper = (io, room) => {
       res.status(500).send(e)
     }
   })
-
 
   router.post('/active-day', async (req, res) => {
     try {
@@ -251,14 +249,6 @@ const wrapper = (io, room) => {
           id: 6,
           name: 'Nicole'
         },
-        {
-          id: 7,
-          name: 'Beth'
-        },
-        {
-          id: 8,
-          name: 'Katie'
-        }
       ]
 
       for (const doctor of doctors) {
