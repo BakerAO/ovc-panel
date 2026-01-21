@@ -1,5 +1,6 @@
-import { Router as ExRouter } from 'express'
-import mysqlPool from './mysqlPool.js'
+import { Router as ExRouter } from 'express';
+import mysqlPool from './mysqlPool.js';
+import homePage from './homePage.js';
 
 const weekdayList = [
   'monday',
@@ -8,7 +9,9 @@ const weekdayList = [
   'thursday',
   'friday',
   'saturday'
-]
+];
+
+const numTimes = 42;
 
 const getTimesQuery = (weekday) => {
   return `
@@ -22,26 +25,13 @@ const getTimesQuery = (weekday) => {
     ON d.id = w.doctorId
     AND d.${weekday} = true
   `
-}
+};
 
 const wrapper = (io, room) => {
   const router = new ExRouter()
 
   router.get('/', (req, res) => {
-    res.status(200).send(`
-      <html>
-        <head>OVC-API</head>
-        <body>
-          <h1>OVC-API</h1>
-          <a href="/generate">
-            <button>Generate</button>
-          </a>
-          <a href="/destroy">
-            <button>Destroy</button>
-          </a>
-        </body>
-      </html>
-    `)
+    res.status(200).send(homePage);
   })
 
   router.get('/doctors', async (req, res) => {
@@ -155,7 +145,6 @@ const wrapper = (io, room) => {
 
   router.get('/active-day', async (req, res) => {
     try {
-
       const getActiveDay = `
         SELECT day
         FROM activeDay
@@ -186,8 +175,6 @@ const wrapper = (io, room) => {
 
   router.get('/generate', async (req, res) => {
     try {
-      const numTimes = 42
-
       for (const day of weekdayList) {
         const createDay = `
           CREATE TABLE ${day} (
@@ -244,10 +231,6 @@ const wrapper = (io, room) => {
         {
           id: 5,
           name: 'Mindy'
-        },
-        {
-          id: 6,
-          name: 'Nicole'
         },
       ]
 
@@ -317,7 +300,88 @@ const wrapper = (io, room) => {
     }
   })
 
-  return router
+  router.post('/add-doctor', async (req, res) => {
+    try {
+      const { doctorName } = req.body;
+
+      const [doctorIds] = await mysqlPool.query(`
+        SELECT id FROM doctors ORDER BY id DESC
+      `);
+      const newId = doctorIds[0].id + 1;
+
+      const createDoctor = `
+        INSERT INTO doctors
+        VALUES (
+          ${newId},
+          '${doctorName}',
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        )
+      `;
+
+      await mysqlPool.query(createDoctor)
+
+      let i = 1
+      while (i <= numTimes) {
+        for (const day of weekdayList) {
+          const createTime = `
+            INSERT INTO ${day} (
+              id,
+              doctorId,
+              status,
+              default_status
+            ) VALUES (
+              ${i},
+              ${newId},
+              0,
+              0
+            )
+          `
+          await mysqlPool.query(createTime)
+        }
+        i++
+      }
+      
+      res.status(200).send('Success')
+    } catch (e) {
+      res.status(500).send(e)
+    }
+  })
+
+  router.post('/delete-doctor', async (req, res) => {
+    try {
+      const { doctorId } = req.body;
+
+      const deleteDoctor = `
+        DELETE FROM doctors
+        WHERE id = ${doctorId}
+      `;
+
+      await mysqlPool.query(deleteDoctor)
+
+      let i = 1
+      while (i <= numTimes) {
+        for (const day of weekdayList) {
+          const deleteTime = `
+            DELETE FROM ${day} 
+            WHERE doctorId = ${doctorId}
+          `
+          await mysqlPool.query(deleteTime)
+        }
+        i++
+      }
+      
+      res.status(200).send('Success')
+    } catch (e) {
+      res.status(500).send(e)
+    }
+  })
+
+  return router;
 }
 
 export default wrapper
